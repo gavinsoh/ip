@@ -35,8 +35,12 @@ public class TaskList {
     }
 
     public Task deleteTask(int index) throws GavinException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new GavinException("OOPS!!! The task number provided does not exist.");
+        }
         return tasks.remove(index);
     }
+
 
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -45,4 +49,5 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
 }

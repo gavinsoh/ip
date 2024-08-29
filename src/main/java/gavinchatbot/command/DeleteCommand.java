@@ -11,14 +11,17 @@ public class DeleteCommand implements Command {
     private final int index;
 
     public DeleteCommand(int index) {
-        this.index = index;
+        this.index = index - 1;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
-        Task task = tasks.deleteTask(index);
-        ui.showDeletedTask(task, tasks.size());
-        storage.save(tasks.getTasks());
+        try {
+            Task taskToDelete = tasks.deleteTask(index);
+            ui.showDeletedTask(taskToDelete, tasks.size());
+        } catch (GavinException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     @Override
